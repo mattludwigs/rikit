@@ -1,0 +1,6 @@
+hash: e81aae273f736da5905972ee8a201885bea45940684efb72ccbc828da1607b6f
+updated: 2016-03-12T19:22:44.56598896-07:00
+imports:
+- name: github.com/codegangsta/cli
+  version: aca5b047ed14d17224157c3434ea93bf6cdaadee
+devImports: []
