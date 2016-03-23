@@ -17,7 +17,18 @@ import (
 var inConfig bool
 var url string
 var path string
+var query string
 var conf config.Config
+
+func isHTTPCall(apiURL string) bool {
+	match, err := regexp.MatchString(`http:\/\/([a-zA-Z0-9]\w+.\w+)`, apiURL)
+
+	if err != nil {
+		panic(err)
+	}
+
+	return match
+}
 
 func GET() cli.Command {
 
@@ -28,10 +39,9 @@ func GET() cli.Command {
 
 			apiURL := c.Args().First()
 			home := getHomeDir()
+			siteConfig := conf.Sites[apiURL]
 
-			match, _ := regexp.MatchString(`http:\/\/([a-zA-Z0-9]\w+.\w+)`, apiURL)
-
-			if !match {
+			if !isHTTPCall(apiURL) {
 				file, e := ioutil.ReadFile(home + "/.rikit.json")
 
 				if e != nil {
@@ -43,11 +53,14 @@ func GET() cli.Command {
 				_, inConfig = conf.Sites[apiURL]
 
 				if inConfig {
-					url = conf.Sites[apiURL].URL
-					url += path
+					url = fmt.Sprintf("%s%s", conf.Sites[apiURL].URL, path)
 				} else {
-					url = apiURL
+					url = fmt.Sprintf("%s", apiURL)
 				}
+			}
+
+			if query != "" {
+				url = fmt.Sprintf("%s?%s", url, query)
 			}
 
 			fmt.Printf("Using: %v\n", url)
@@ -78,6 +91,7 @@ func GET() cli.Command {
 		},
 		Flags: []cli.Flag{
 			cli.StringFlag{Name: "path, p", Destination: &path},
+			cli.StringFlag{Name: "query, q", Destination: &query},
 		},
 	}
 }
