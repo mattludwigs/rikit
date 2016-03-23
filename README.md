@@ -2,9 +2,6 @@
 
 Rikit (pronounced *rick-it*) is an API testing CLI for quick and configurable HTTP calls.
 
-Current Version: 1.0.0
-Current Release: MVP
-
 ## Set Up
 
 Must have `.rikit.json` file in home directory
