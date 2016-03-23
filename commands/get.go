@@ -39,7 +39,6 @@ func GET() cli.Command {
 
 			apiURL := c.Args().First()
 			home := getHomeDir()
-			siteConfig := conf.Sites[apiURL]
 
 			if !isHTTPCall(apiURL) {
 				file, e := ioutil.ReadFile(home + "/.rikit.json")

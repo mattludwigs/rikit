@@ -12,7 +12,7 @@ func main() {
 	app := cli.NewApp()
 
 	app.Name = "Rikit"
-	app.Version = "1.1.0"
+	app.Version = "1.1.1"
 	app.Usage = "API testing CLI"
 
 	app.Commands = []cli.Command{
